@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wastraloka — Modern Indonesian Batik Fashion | Made in Java</title>
+  <meta name="description" content="Batik modern untuk wanita & pria. Dress, kebaya, kemeja, outer dengan motif tradisional & cutting modern. Made in Java, free shipping di atas Rp 750k." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* === Airbnb Design Tokens — adapted for Wastraloka === */
+    :root {
+      --color-primary: #c9614a;
+      --color-primary-active: #a84836;
+      --color-ink: #222222;
+      --color-body: #3f3f3f;
+      --color-muted: #6a6a6a;
+      --color-muted-soft: #929292;
+      --color-hairline: #dddddd;
+      --color-hairline-soft: #ebebeb;
+      --color-canvas: #ffffff;
+      --color-surface-soft: #f7f7f7;
+      --color-surface-strong: #f2f2f2;
+      --color-warm-cream: #f8f4ef;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', -apple-system, system-ui, sans-serif;
+      --rounded-sm: 8px;
+      --rounded-md: 14px;
+      --rounded-full: 9999px;
+      --shadow-card: rgba(0,0,0,0.02) 0 0 0 1px, rgba(0,0,0,0.04) 0 2px 6px, rgba(0,0,0,0.1) 0 4px 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); color: var(--color-ink); background: var(--color-canvas); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    @media (max-width: 744px) { .container { padding: 0 16px; } }
+
+    /* Section typography */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 8px; }
+    .section-heading { font-family: var(--font-display); font-size: clamp(28px, 4vw, 42px); font-weight: 600; color: var(--color-ink); line-height: 1.1; letter-spacing: -0.5px; }
+    .section-sub { font-size: 16px; color: var(--color-muted); margin-top: 8px; max-width: 560px; line-height: 1.6; }
+
+    /* === NAVBAR === */
+    .nav { position: sticky; top: 0; z-index: 100; background: var(--color-canvas); border-bottom: 1px solid var(--color-hairline); height: 80px; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--color-primary); }
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+    .nav-links a { font-size: 15px; font-weight: 500; color: var(--color-body); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--color-ink); }
+    .nav-sale { color: var(--color-primary) !important; font-weight: 600 !important; }
+    .nav-actions { display: flex; align-items: center; gap: 4px; }
+    .nav-icon-btn { width: 40px; height: 40px; border-radius: var(--rounded-full); display: flex; align-items: center; justify-content: center; color: var(--color-ink); transition: background 0.2s; position: relative; }
+    .nav-icon-btn:hover { background: var(--color-surface-strong); }
+    .nav-icon-btn svg { width: 20px; height: 20px; }
+    .cart-dot::after { content: '0'; position: absolute; top: 5px; right: 5px; width: 15px; height: 15px; background: var(--color-primary); color: white; font-size: 9px; font-weight: 700; border-radius: var(--rounded-full); display: flex; align-items: center; justify-content: center; line-height: 15px; text-align: center; }
+
+    /* === HERO === */
+    .hero { position: relative; height: 92vh; min-height: 580px; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #1a0e08 0%, #3d1f10 25%, #5c3520 50%, #2e2a20 75%, #1a1a2e 100%); }
+    .hero-texture { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 120px); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.35) 50%, transparent 100%); }
+    .hero-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 80px 80px; max-width: 620px; }
+    @media (max-width: 744px) { .hero-content { padding: 0 20px 80px; max-width: 100%; } }
+    .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+    .hero-headline { font-family: var(--font-display); font-size: clamp(42px, 7vw, 80px); font-weight: 600; color: white; line-height: 1.02; letter-spacing: -1.5px; margin-bottom: 20px; }
+    .hero-headline em { font-style: italic; color: rgba(255,255,255,0.88); }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.82); line-height: 1.65; max-width: 420px; margin-bottom: 36px; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: var(--color-primary); color: white; font-size: 16px; font-weight: 500; padding: 14px 28px; border-radius: var(--rounded-sm); display: inline-block; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--color-primary-active); }
+    .btn-outline-white { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); color: white; font-size: 16px; font-weight: 500; padding: 13px 27px; border-radius: var(--rounded-sm); border: 1px solid rgba(255,255,255,0.45); display: inline-block; transition: background 0.2s; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.22); }
+    .hero-sub-banner { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-top: 1px solid var(--color-hairline); padding: 14px 32px; display: flex; align-items: center; justify-content: center; gap: 48px; }
+    @media (max-width: 744px) { .hero-sub-banner { gap: 20px; padding: 12px 16px; flex-wrap: wrap; } }
+    .sub-item { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 500; color: var(--color-body); }
+    .sub-item svg { width: 15px; height: 15px; color: var(--color-primary); flex-shrink: 0; }
+
+    /* === NEW COLLECTION === */
+    .new-collection { padding: 64px 0; }
+    .collection-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; padding: 0 32px; max-width: 1280px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 744px) { .collection-header { padding: 0 16px; flex-direction: column; align-items: flex-start; gap: 12px; } }
+    .view-all { font-size: 14px; font-weight: 600; color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    .carousel-wrap { padding: 0 32px; max-width: 1280px; margin: 0 auto; }
+    @media (max-width: 744px) { .carousel-wrap { padding: 0 16px; } }
+    .carousel { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .carousel::-webkit-scrollbar { display: none; }
+
+    /* Product card — Airbnb experience-card (4:5) */
+    .p-card { flex: 0 0 240px; cursor: pointer; }
+    .p-card-photo { position: relative; aspect-ratio: 4/5; border-radius: var(--rounded-md); overflow: hidden; }
+    .p-card-photo .thumb { width: 100%; height: 100%; transition: transform 0.4s ease; }
+    .p-card:hover .thumb { transform: scale(1.04); }
+    .badge-new { position: absolute; top: 12px; left: 12px; background: white; color: var(--color-ink); font-size: 9px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: var(--rounded-full); box-shadow: var(--shadow-card); }
+    .badge-hit { position: absolute; top: 12px; left: 12px; background: white; color: var(--color-ink); font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: var(--rounded-full); box-shadow: var(--shadow-card); }
+    .heart-btn { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: var(--rounded-full); background: rgba(255,255,255,0.82); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .heart-btn:hover { background: white; }
+    .heart-btn svg { width: 16px; height: 16px; }
+    .p-card-meta { padding: 10px 0 0; }
+    .p-card-name { font-size: 14px; font-weight: 600; color: var(--color-ink); line-height: 1.3; }
+    .p-card-sub { font-size: 13px; color: var(--color-muted); margin-top: 2px; }
+    .p-card-price { font-size: 14px; font-weight: 600; color: var(--color-ink); margin-top: 4px; }
+
+    /* Color swatch gradients */
+    .g1 { background: linear-gradient(135deg, #8b5e3c 0%, #c9614a 100%); }
+    .g2 { background: linear-gradient(135deg, #2e4a7a 0%, #4a6fa5 100%); }
+    .g3 { background: linear-gradient(135deg, #5c7a3e 0%, #8aad5a 100%); }
+    .g4 { background: linear-gradient(135deg, #7a4a2e 0%, #c9814a 100%); }
+    .g5 { background: linear-gradient(135deg, #4a2e7a 0%, #8a5ac9 100%); }
+    .g6 { background: linear-gradient(135deg, #7a2e4a 0%, #c94a6a 100%); }
+
+    .grad-label { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 14px; }
+    .grad-label span { font-family: var(--font-display); font-size: 15px; font-style: italic; color: rgba(255,255,255,0.8); }
+
+    /* === CATEGORIES === */
+    .categories { padding: 64px 0; background: var(--color-surface-soft); }
+    .categories-header { margin-bottom: 28px; }
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
+    .cat-card { position: relative; aspect-ratio: 3/2; border-radius: var(--rounded-md); overflow: hidden; cursor: pointer; }
+    .cat-bg { width: 100%; height: 100%; transition: transform 0.4s ease; }
+    .cat-card:hover .cat-bg { transform: scale(1.04); }
+    .cat-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%); }
+    .cat-meta { position: absolute; bottom: 14px; left: 14px; color: white; }
+    .cat-name { font-family: var(--font-display); font-size: 20px; font-weight: 600; }
+    .cat-count { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.72); margin-top: 1px; }
+
+    /* === MOTIF STORIES === */
+    .motif-stories { padding: 64px 0; }
+    .motif-header { margin-bottom: 32px; }
+    .motif-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .motif-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .motif-grid { grid-template-columns: 1fr; } }
+    .motif-card { border-radius: var(--rounded-md); overflow: hidden; border: 1px solid var(--color-hairline-soft); cursor: pointer; transition: box-shadow 0.2s; }
+    .motif-card:hover { box-shadow: var(--shadow-card); }
+    .motif-photo { aspect-ratio: 1/1; overflow: hidden; }
+    .motif-photo .thumb { width: 100%; height: 100%; transition: transform 0.4s ease; }
+    .motif-card:hover .motif-photo .thumb { transform: scale(1.05); }
+    .motif-info { padding: 14px 16px 18px; }
+    .motif-origin { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 4px; }
+    .motif-name { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px; }
+    .motif-desc { font-size: 13px; color: var(--color-muted); line-height: 1.55; }
+
+    /* === THE CRAFT === */
+    .the-craft { padding: 64px 0; background: var(--color-warm-cream); }
+    .craft-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    @media (max-width: 900px) { .craft-inner { grid-template-columns: 1fr; gap: 40px; } }
+    .craft-body-text { font-size: 16px; color: var(--color-body); line-height: 1.7; margin-top: 16px; margin-bottom: 36px; }
+    .craft-stats { display: flex; gap: 40px; }
+    .stat-num { font-family: var(--font-display); font-size: 48px; font-weight: 600; color: var(--color-ink); line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--color-muted); margin-top: 6px; }
+    .craft-steps { display: flex; flex-direction: column; }
+    .craft-step { display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--color-hairline-soft); }
+    .craft-step:last-child { border-bottom: none; }
+    .step-icon { width: 48px; height: 48px; border-radius: var(--rounded-full); background: white; border: 1px solid var(--color-hairline); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; box-shadow: var(--shadow-card); }
+    .step-num { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 4px; }
+    .step-title { font-size: 16px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px; }
+    .step-desc { font-size: 14px; color: var(--color-body); line-height: 1.6; }
+
+    /* === BEST SELLERS === */
+    .best-sellers { padding: 64px 0; }
+    .sellers-header { margin-bottom: 28px; }
+    .filter-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 18px; border-radius: var(--rounded-full); font-size: 14px; font-weight: 500; border: 1px solid var(--color-hairline); color: var(--color-muted); transition: all 0.2s; background: white; }
+    .filter-btn:hover { border-color: var(--color-ink); color: var(--color-ink); }
+    .filter-btn.active { background: var(--color-ink); color: white; border-color: var(--color-ink); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 1024px) { .grid-4 { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 744px) { .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+
+    /* === SUSTAINABILITY === */
+    .sustainability { padding: 64px 0; background: var(--color-surface-soft); }
+    .sustain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 36px; }
+    @media (max-width: 1024px) { .sustain-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .sustain-grid { grid-template-columns: 1fr; } }
+    .sustain-card { background: white; border-radius: var(--rounded-md); padding: 28px 24px; border: 1px solid var(--color-hairline-soft); }
+    .sustain-icon { font-size: 28px; margin-bottom: 14px; }
+    .sustain-title { font-size: 15px; font-weight: 600; color: var(--color-ink); margin-bottom: 8px; }
+    .sustain-desc { font-size: 13px; color: var(--color-muted); line-height: 1.6; }
+
+    /* === REVIEWS === */
+    .reviews { padding: 64px 0; }
+    .reviews-header { margin-bottom: 32px; }
+    .rating-band { display: flex; align-items: center; gap: 24px; padding: 28px 32px; background: var(--color-surface-soft); border-radius: var(--rounded-md); margin-bottom: 28px; }
+    @media (max-width: 600px) { .rating-band { flex-direction: column; text-align: center; padding: 24px 20px; } }
+    .rating-big { font-family: var(--font-display); font-size: 72px; font-weight: 600; color: var(--color-ink); line-height: 1; letter-spacing: -2px; }
+    .stars-row { display: flex; gap: 3px; margin-bottom: 6px; }
+    .stars-row svg { width: 18px; height: 18px; fill: var(--color-ink); }
+    .rating-label { font-size: 16px; font-weight: 600; color: var(--color-ink); }
+    .rating-count { font-size: 13px; color: var(--color-muted); margin-top: 2px; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    @media (max-width: 744px) { .reviews-grid { grid-template-columns: 1fr; } }
+    .review-card { background: white; border-radius: var(--rounded-md); padding: 22px; border: 1px solid var(--color-hairline-soft); }
+    .review-author { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .review-avatar { width: 42px; height: 42px; border-radius: var(--rounded-full); overflow: hidden; flex-shrink: 0; }
+    .review-name { font-size: 14px; font-weight: 600; color: var(--color-ink); }
+    .review-location { font-size: 12px; color: var(--color-muted); }
+    .review-stars { display: flex; gap: 2px; margin-bottom: 8px; }
+    .review-stars svg { width: 13px; height: 13px; fill: var(--color-ink); }
+    .review-text { font-size: 14px; color: var(--color-body); line-height: 1.6; }
+
+    /* === PRESS === */
+    .press { padding: 48px 0; border-top: 1px solid var(--color-hairline-soft); border-bottom: 1px solid var(--color-hairline-soft); }
+    .press-label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--color-muted); text-align: center; margin-bottom: 24px; }
+    .press-logos { display: flex; align-items: center; justify-content: center; gap: 52px; flex-wrap: wrap; }
+    .press-name { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--color-muted-soft); letter-spacing: 0.3px; transition: color 0.2s; cursor: default; }
+    .press-name:hover { color: var(--color-ink); }
+
+    /* === NEWSLETTER === */
+    .newsletter { padding: 96px 0; }
+    .newsletter-inner { text-align: center; max-width: 540px; margin: 0 auto; }
+    .newsletter-sub { font-size: 16px; color: var(--color-muted); line-height: 1.65; margin: 12px 0 28px; }
+    .newsletter-form { display: flex; background: white; border: 1px solid var(--color-hairline); border-radius: var(--rounded-full); padding: 8px 8px 8px 24px; align-items: center; box-shadow: var(--shadow-card); }
+    .newsletter-input { flex: 1; border: none; outline: none; font-family: var(--font-body); font-size: 15px; color: var(--color-ink); background: transparent; min-width: 0; }
+    .newsletter-input::placeholder { color: var(--color-muted-soft); }
+    .newsletter-submit { background: var(--color-primary); color: white; font-family: var(--font-body); font-size: 14px; font-weight: 500; padding: 12px 22px; border-radius: var(--rounded-full); white-space: nowrap; transition: background 0.2s; }
+    .newsletter-submit:hover { background: var(--color-primary-active); }
+    .newsletter-note { font-size: 12px; color: var(--color-muted-soft); margin-top: 12px; }
+
+    /* === FOOTER === */
+    .footer { background: var(--color-canvas); border-top: 1px solid var(--color-hairline); padding: 48px 0 0; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-logo { font-family: var(--font-display); font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+    .footer-tagline { font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--color-muted); margin-bottom: 20px; }
+    .footer-socials { display: flex; gap: 8px; }
+    .soc-btn { width: 36px; height: 36px; border-radius: var(--rounded-full); border: 1px solid var(--color-hairline); display: flex; align-items: center; justify-content: center; color: var(--color-muted); font-size: 11px; font-weight: 700; transition: all 0.2s; }
+    .soc-btn:hover { border-color: var(--color-ink); color: var(--color-ink); }
+    .footer-col-head { font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: var(--color-muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--color-ink); }
+    .footer-legal { border-top: 1px solid var(--color-hairline-soft); padding: 16px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copyright { font-size: 12px; color: var(--color-muted); }
+    .payment-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pay-chip { font-size: 10px; font-weight: 700; color: var(--color-muted); background: var(--color-surface-strong); padding: 3px 8px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Wastra<span>loka</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Women</a></li>
+      <li><a href="#">Men</a></li>
+      <li><a href="#">Collection</a></li>
+      <li><a href="#">Stories</a></li>
+      <li><a href="#" class="nav-sale">Sale</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="nav-icon-btn" aria-label="Cari">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </a>
+      <a href="#" class="nav-icon-btn" aria-label="Akun">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </a>
+      <a href="#" class="nav-icon-btn cart-dot" aria-label="Keranjang">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Koleksi Senja Rimba — 2026</p>
+    <h1 class="hero-headline">Batik, Tapi<br><em>Bukan Yang Biasa.</em></h1>
+    <p class="hero-sub">Wastraloka merancang batik modern untuk wanita &amp; pria yang mencintai detail. Dibatik dan dijahit di Jawa oleh tangan-tangan terbaik.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Shop New Collection</a>
+      <a href="#" class="btn-outline-white">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-sub-banner">
+    <div class="sub-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Free shipping di atas Rp 750.000
+    </div>
+    <div class="sub-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="m9 12 2 2 4-4"/></svg>
+      30-day return
+    </div>
+    <div class="sub-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      100% Made in Java
+    </div>
+  </div>
+</section>
+
+<!-- NEW COLLECTION -->
+<section class="new-collection">
+  <div class="collection-header">
+    <div>
+      <p class="section-label">New Arrival</p>
+      <h2 class="section-heading">Koleksi: <em style="font-style:italic;font-family:'Cormorant Garamond',serif;">Senja Rimba</em></h2>
+      <p class="section-sub">Terinspirasi cahaya senja yang menembus rimba — motif daun dan hutan dengan palet warm earth tone.</p>
+    </div>
+    <a href="#" class="view-all">Lihat semua</a>
+  </div>
+  <div class="carousel-wrap">
+    <div class="carousel">
+      <div class="p-card">
+        <div class="p-card-photo">
+          <div class="thumb g1"><div class="grad-label"><span>Rimba Wrap Dress</span></div></div>
+          <span class="badge-new">New</span>
+          <button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="p-card-meta">
+          <p class="p-card-name">Rimba Wrap Dress</p>
+          <p class="p-card-sub">Motif Daun · Earth Tone</p>
+          <p class="p-card-price">Rp 1.200.000</p>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-photo">
+          <div class="thumb g2"><div class="grad-label"><span>Senja Kebaya Modern</span></div></div>
+          <span class="badge-new">New</span>
+          <button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="p-card-meta">
+          <p class="p-card-name">Senja Kebaya Modern</p>
+          <p class="p-card-sub">Motif Kawung · Indigo</p>
+          <p class="p-card-price">Rp 1.500.000</p>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-photo">
+          <div class="thumb g3"><div class="grad-label"><span>Daun Outer Kimono</span></div></div>
+          <span class="badge-new">New</span>
+          <button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="p-card-meta">
+          <p class="p-card-name">Daun Outer Kimono</p>
+          <p class="p-card-sub">Motif Sekar Jagad · Sage</p>
+          <p class="p-card-price">Rp 950.000</p>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-photo">
+          <div class="thumb g4"><div class="grad-label"><span>Rimba Casual Shirt</span></div></div>
+          <span class="badge-new">New</span>
+          <button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="p-card-meta">
+          <p class="p-card-name">Rimba Casual Shirt</p>
+          <p class="p-card-sub">Men · Motif Parang · Soga</p>
+          <p class="p-card-price">Rp 750.000</p>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="p-card-photo">
+          <div class="thumb g5"><div class="grad-label"><span>Senja Wide Pants</span></div></div>
+          <span class="badge-new">New</span>
+          <button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="p-card-meta">
+          <p class="p-card-name">Senja Wide Pants</p>
+          <p class="p-card-sub">Motif Truntum · Cream</p>
+          <p class="p-card-price">Rp 650.000</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="container">
+    <div class="categories-header">
+      <p class="section-label">Browse</p>
+      <h2 class="section-heading">Shop By Category</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="cat-bg g1"></div><div class="cat-overlay"></div><div class="cat-meta"><p class="cat-name">Dress</p><p class="cat-count">32 produk</p></div></div>
+      <div class="cat-card"><div class="cat-bg g2"></div><div class="cat-overlay"></div><div class="cat-meta"><p class="cat-name">Outer &amp; Kimono</p><p class="cat-count">18 produk</p></div></div>
+      <div class="cat-card"><div class="cat-bg g3"></div><div class="cat-overlay"></div><div class="cat-meta"><p class="cat-name">Kemeja</p><p class="cat-count">40 produk</p></div></div>
+      <div class="cat-card"><div class="cat-bg g4"></div><div class="cat-overlay"></div><div class="cat-meta"><p class="cat-name">Bottom</p><p class="cat-count">14 produk</p></div></div>
+      <div class="cat-card"><div class="cat-bg g5"></div><div class="cat-overlay"></div><div class="cat-meta"><p class="cat-name">Aksesoris</p><p class="cat-count">22 produk</p></div></div>
+      <div class="cat-card"><div class="cat-bg g6"></div><div class="cat-overlay"></div><div class="cat-meta"><p class="cat-name">Wedding Series</p><p class="cat-count">12 produk</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIF STORIES -->
+<section class="motif-stories">
+  <div class="container">
+    <div class="motif-header">
+      <p class="section-label">Budaya &amp; Filosofi</p>
+      <h2 class="section-heading">Setiap Motif Adalah Cerita</h2>
+      <p class="section-sub">Klik untuk mendalami filosofi di balik motif yang Anda kenakan.</p>
+    </div>
+    <div class="motif-grid">
+      <div class="motif-card">
+        <div class="motif-photo"><div class="thumb g1" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,0.85);">Parang</span></div></div>
+        <div class="motif-info"><p class="motif-origin">Jawa Tengah · Solo</p><h3 class="motif-name">Parang</h3><p class="motif-desc">Simbol kekuatan, keberanian, dan kontinuitas. Dahulu hanya dikenakan oleh para raja Mataram.</p></div>
+      </div>
+      <div class="motif-card">
+        <div class="motif-photo"><div class="thumb g2" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,0.85);">Mega Mendung</span></div></div>
+        <div class="motif-info"><p class="motif-origin">Jawa Barat · Cirebon</p><h3 class="motif-name">Mega Mendung</h3><p class="motif-desc">Motif awan dari Cirebon, simbol kesabaran dan ketenangan menghadapi badai kehidupan.</p></div>
+      </div>
+      <div class="motif-card">
+        <div class="motif-photo"><div class="thumb g3" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,0.85);">Kawung</span></div></div>
+        <div class="motif-info"><p class="motif-origin">Jawa · Yogyakarta</p><h3 class="motif-name">Kawung</h3><p class="motif-desc">Terinspirasi buah aren. Melambangkan kemurnian hati dan pengendalian diri yang sempurna.</p></div>
+      </div>
+      <div class="motif-card">
+        <div class="motif-photo"><div class="thumb g4" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,0.85);">Truntum</span></div></div>
+        <div class="motif-info"><p class="motif-origin">Jawa Tengah · Solo</p><h3 class="motif-name">Truntum</h3><p class="motif-desc">Bintang-bintang malam yang memandu arah. Motif cinta abadi dan kasih sayang yang tumbuh kembali.</p></div>
+      </div>
+      <div class="motif-card">
+        <div class="motif-photo"><div class="thumb g5" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,0.85);">Sekar Jagad</span></div></div>
+        <div class="motif-info"><p class="motif-origin">Jawa · Berbagai Daerah</p><h3 class="motif-name">Sekar Jagad</h3><p class="motif-desc">"Bunga dunia" — merayakan keberagaman dan keindahan alam semesta dalam satu lembar kain.</p></div>
+      </div>
+      <div class="motif-card">
+        <div class="motif-photo"><div class="thumb g6" style="aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:rgba(255,255,255,0.85);">Sido Mukti</span></div></div>
+        <div class="motif-info"><p class="motif-origin">Jawa Tengah · Solo</p><h3 class="motif-name">Sido Mukti</h3><p class="motif-desc">Motif kemakmuran dan kebahagiaan untuk pengantin. Harapan kehidupan rumah tangga yang sejahtera.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE CRAFT -->
+<section class="the-craft">
+  <div class="container">
+    <div class="craft-inner">
+      <div>
+        <p class="section-label">Proses</p>
+        <h2 class="section-heading">Kerajinan Yang Tidak Bisa Diburu-buru</h2>
+        <p class="craft-body-text">Setiap helai Wastraloka melewati 14–21 tahap, dari menggambar pola hingga finishing. Kami bekerja sama dengan 35+ pengrajin di Pekalongan, Solo, Cirebon, dan Madura.</p>
+        <div class="craft-stats">
+          <div><div class="stat-num">35+</div><div class="stat-label">Pengrajin Mitra</div></div>
+          <div><div class="stat-num">21</div><div class="stat-label">Tahap Produksi</div></div>
+          <div><div class="stat-num">100%</div><div class="stat-label">Made in Java</div></div>
+        </div>
+      </div>
+      <div class="craft-steps">
+        <div class="craft-step">
+          <div class="step-icon">🎨</div>
+          <div><p class="step-num">Langkah 01</p><h3 class="step-title">Menggambar Pola</h3><p class="step-desc">Desainer kami berkolaborasi langsung dengan pengrajin merancang motif — memadukan filosofi tradisional dengan estetika kontemporer.</p></div>
+        </div>
+        <div class="craft-step">
+          <div class="step-icon">🕯️</div>
+          <div><p class="step-num">Langkah 02</p><h3 class="step-title">Membatik (Tulis / Cap)</h3><p class="step-desc">Batik tulis untuk koleksi premium — setiap titik canting dikerjakan tangan. Batik cap untuk produksi terbatas dengan presisi motif terjaga.</p></div>
+        </div>
+        <div class="craft-step">
+          <div class="step-icon">🌿</div>
+          <div><p class="step-num">Langkah 03</p><h3 class="step-title">Pewarnaan Natural</h3><p class="step-desc">Indigo untuk biru yang dalam, mengkudu untuk merah hangat, soga untuk coklat elegan — pewarna alami yang ramah bumi.</p></div>
+        </div>
+        <div class="craft-step">
+          <div class="step-icon">✂️</div>
+          <div><p class="step-num">Langkah 04</p><h3 class="step-title">Menjahit &amp; Finishing</h3><p class="step-desc">Cutting modern dikerjakan di Solo — draping flattering untuk berbagai bentuk tubuh, dengan finishing detail yang terasa di setiap jahitan.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section class="best-sellers">
+  <div class="container">
+    <div class="sellers-header">
+      <p class="section-label">Terlaris</p>
+      <h2 class="section-heading">Best Sellers</h2>
+      <div class="filter-row">
+        <button class="filter-btn active">Semua</button>
+        <button class="filter-btn">Women</button>
+        <button class="filter-btn">Men</button>
+        <button class="filter-btn">Unisex</button>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g1"><div class="grad-label"><span>Wrap Dress Parang</span></div></div><span class="badge-hit">Best Seller</span><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Wrap Dress Parang Soga</p><p class="p-card-sub">Women · Motif Parang</p><p class="p-card-price">Rp 1.100.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g2"><div class="grad-label"><span>Kemeja Mega Mendung</span></div></div><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Kemeja Mega Mendung Pria</p><p class="p-card-sub">Men · Motif Mega Mendung</p><p class="p-card-price">Rp 695.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g3"><div class="grad-label"><span>Kebaya Kawung</span></div></div><span class="badge-hit">Best Seller</span><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Kebaya Kawung Indigo</p><p class="p-card-sub">Women · Motif Kawung</p><p class="p-card-price">Rp 1.350.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g4"><div class="grad-label"><span>Outer Kimono Truntum</span></div></div><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Outer Kimono Truntum</p><p class="p-card-sub">Unisex · Motif Truntum</p><p class="p-card-price">Rp 895.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g5"><div class="grad-label"><span>Wide Pants Sekar Jagad</span></div></div><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Sekar Jagad Wide Pants</p><p class="p-card-sub">Women · Motif Sekar Jagad</p><p class="p-card-price">Rp 650.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g6"><div class="grad-label"><span>Set Sido Mukti Wedding</span></div></div><span class="badge-hit">Best Seller</span><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Set Sido Mukti Wedding</p><p class="p-card-sub">Wedding Series · Sido Mukti</p><p class="p-card-price">Rp 2.400.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g1"><div class="grad-label"><span>Kemeja Parang Premium</span></div></div><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Kemeja Parang Premium</p><p class="p-card-sub">Men · Batik Tulis · Premium</p><p class="p-card-price">Rp 985.000</p></div>
+      </div>
+      <div class="p-card" style="flex:unset;">
+        <div class="p-card-photo"><div class="thumb g3"><div class="grad-label"><span>Crop Blouse Kawung</span></div></div><button class="heart-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+        <div class="p-card-meta"><p class="p-card-name">Crop Blouse Kawung</p><p class="p-card-sub">Women · Motif Kawung · Sage</p><p class="p-card-price">Rp 575.000</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section class="sustainability">
+  <div class="container">
+    <p class="section-label">Komitmen Kami</p>
+    <h2 class="section-heading">Lebih Dari Sekadar Fashion</h2>
+    <p class="section-sub">Kami percaya, fashion yang baik adalah fashion yang menghormati orang dan bumi.</p>
+    <div class="sustain-grid">
+      <div class="sustain-card"><div class="sustain-icon">🤝</div><h3 class="sustain-title">Fair Pricing for Artisans</h3><p class="sustain-desc">Membayar 25% di atas harga pasar untuk setiap pengrajin mitra — karena keahlian yang langka layak dihargai setimpal.</p></div>
+      <div class="sustain-card"><div class="sustain-icon">🌿</div><h3 class="sustain-title">Natural Dye When Possible</h3><p class="sustain-desc">Indigo, mengkudu, soga — pewarna alami yang aman untuk kulit dan tidak mencemari sungai di sekitar workshop.</p></div>
+      <div class="sustain-card"><div class="sustain-icon">♻️</div><h3 class="sustain-title">Zero Waste Cutting</h3><p class="sustain-desc">Sisa kain tidak dibuang — dijahit menjadi scrunchie, pouch, dan aksesori yang dijual dengan harga terjangkau.</p></div>
+      <div class="sustain-card"><div class="sustain-icon">📦</div><h3 class="sustain-title">Plastic-Free Packaging</h3><p class="sustain-desc">Box karton recyclable, paper tape, dan tissue kertas — tanpa satu pun lembar plastik dalam setiap paket yang dikirim.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="container">
+    <div class="reviews-header">
+      <p class="section-label">Ulasan</p>
+      <h2 class="section-heading">Apa Kata Pelanggan</h2>
+    </div>
+    <div class="rating-band">
+      <div class="rating-big">4.9</div>
+      <div>
+        <div class="stars-row">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="rating-label">Sangat direkomendasikan</p>
+        <p class="rating-count">800+ ulasan pelanggan</p>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-author"><div class="review-avatar"><div style="width:100%;height:100%;background:linear-gradient(135deg,#c9614a,#8b5e3c);"></div></div><div><p class="review-name">Maria S.</p><p class="review-location">Jakarta Selatan</p></div></div>
+        <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="review-text">"Quality batiknya beda dari toko biasa. Cutting modern banget, jatuhnya di badan perfect. Jahitannya halus dan rapi. Udah beli 3 kali dan nggak pernah kecewa."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-author"><div class="review-avatar"><div style="width:100%;height:100%;background:linear-gradient(135deg,#2e4a7a,#4a6fa5);"></div></div><div><p class="review-name">Bayu P.</p><p class="review-location">Bandung</p></div></div>
+        <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="review-text">"Beli kemeja Wastraloka untuk seragam keluarga di nikahan adik. Warnanya konsisten semua unit, motifnya presisi. Tamu pada nanyain belinya di mana — bangga banget."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-author"><div class="review-avatar"><div style="width:100%;height:100%;background:linear-gradient(135deg,#5c7a3e,#8aad5a);"></div></div><div><p class="review-name">Tika R.</p><p class="review-location">Surabaya</p></div></div>
+        <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="review-text">"Customer service sangat responsif, packaging cantik dan aman. Cocok banget untuk kado — penerimanya pasti senang. Recommended untuk yang cari hadiah premium."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-author"><div class="review-avatar"><div style="width:100%;height:100%;background:linear-gradient(135deg,#7a4a2e,#c9814a);"></div></div><div><p class="review-name">Dewi A.</p><p class="review-location">Yogyakarta</p></div></div>
+        <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <p class="review-text">"Sebagai orang Jogja yang paham batik, saya terkesan dengan kualitas tulis di koleksi premium. Motif Kawung-nya presisi, warna indigo tetap cerah setelah beberapa kali cuci."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="press">
+  <div class="container">
+    <p class="press-label">Diliput Oleh</p>
+    <div class="press-logos">
+      <span class="press-name">Vogue Indonesia</span>
+      <span class="press-name">Harper's Bazaar</span>
+      <span class="press-name">Tempo Magazine</span>
+      <span class="press-name">The Jakarta Post</span>
+      <span class="press-name">Bridestory</span>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <p class="section-label">Newsletter</p>
+      <h2 class="section-heading">Bergabung dengan Keluarga Wastraloka</h2>
+      <p class="newsletter-sub">Dapatkan akses early ke new collection, story di balik motif, dan diskon eksklusif <strong>10% untuk first order</strong>.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" class="newsletter-input" placeholder="Masukkan email Anda" aria-label="Email" />
+        <button type="submit" class="newsletter-submit">Dapatkan 10% Off</button>
+      </form>
+      <p class="newsletter-note">Dengan mendaftar, Anda menyetujui kebijakan privasi kami. Berhenti langganan kapan saja.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-logo">Wastraloka</p>
+        <p class="footer-tagline">"Crafted in Java, worn worldwide."</p>
+        <div class="footer-socials">
+          <a href="#" class="soc-btn" aria-label="Instagram">IG</a>
+          <a href="#" class="soc-btn" aria-label="TikTok">TT</a>
+          <a href="#" class="soc-btn" aria-label="Pinterest">PT</a>
+          <a href="#" class="soc-btn" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-head">Bantuan</p>
+        <ul class="footer-links">
+          <li><a href="#">Cara Perawatan Batik</a></li>
+          <li><a href="#">Panduan Ukuran</a></li>
+          <li><a href="#">Pengiriman &amp; Return</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Hubungi Kami</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Eksplorasi</p>
+        <ul class="footer-links">
+          <li><a href="#">Women</a></li>
+          <li><a href="#">Men</a></li>
+          <li><a href="#">Wedding Series</a></li>
+          <li><a href="#">Lookbook</a></li>
+          <li><a href="#">Motif Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Tentang Kami</p>
+        <ul class="footer-links">
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">The Craft</a></li>
+          <li><a href="#">Pengrajin Mitra</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Press &amp; Media</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p class="footer-copyright">© 2026 Wastraloka. All rights reserved.</p>
+      <div class="payment-chips">
+        <span class="pay-chip">BCA</span>
+        <span class="pay-chip">Mandiri</span>
+        <span class="pay-chip">OVO</span>
+        <span class="pay-chip">GoPay</span>
+        <span class="pay-chip">ShopeePay</span>
+        <span class="pay-chip">VISA</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+---
+const helpLinks = [
+  { label: 'Cara Perawatan Batik', href: '#' },
+  { label: 'Panduan Ukuran', href: '#' },
+  { label: 'Pengiriman & Return', href: '#' },
+  { label: 'FAQ', href: '#' },
+  { label: 'Hubungi Kami', href: '#' },
+];
+
+const exploreLinks = [
+  { label: 'Women', href: '#' },
+  { label: 'Men', href: '#' },
+  { label: 'Wedding Series', href: '#' },
+  { label: 'Lookbook', href: '#' },
+  { label: 'Motif Stories', href: '#' },
+];
+
+const aboutLinks = [
+  { label: 'Our Story', href: '#' },
+  { label: 'The Craft', href: '#' },
+  { label: 'Pengrajin Mitra', href: '#' },
+  { label: 'Sustainability', href: '#' },
+  { label: 'Press & Media', href: '#' },
+];
+
+const socials = [
+  { label: 'Instagram', abbr: 'IG', href: 'https://instagram.com/wastraloka' },
+  { label: 'TikTok', abbr: 'TT', href: '#' },
+  { label: 'Pinterest', abbr: 'PT', href: '#' },
+  { label: 'YouTube', abbr: 'YT', href: '#' },
+];
+
+const paymentMethods = ['BCA', 'Mandiri', 'OVO', 'GoPay', 'ShopeePay', 'VISA'];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <p class="footer-logo">Wastraloka</p>
+        <p class="footer-tagline">"Crafted in Java, worn worldwide."</p>
+        <div class="footer-socials">
+          {socials.map((s) => (
+            <a
+              href={s.href}
+              class="soc-btn"
+              aria-label={s.label}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {s.abbr}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Help column -->
+      <div>
+        <p class="footer-col-head">Bantuan</p>
+        <ul class="footer-links" role="list">
+          {helpLinks.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Explore column -->
+      <div>
+        <p class="footer-col-head">Eksplorasi</p>
+        <ul class="footer-links" role="list">
+          {exploreLinks.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- About column -->
+      <div>
+        <p class="footer-col-head">Tentang Kami</p>
+        <ul class="footer-links" role="list">
+          {aboutLinks.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Legal band -->
+    <div class="footer-legal">
+      <p class="footer-copyright">© 2026 Wastraloka. All rights reserved.</p>
+      <div class="payment-chips">
+        {paymentMethods.map((m) => (
+          <span class="pay-chip">{m}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-hairline-soft);
+    padding-top: 3rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.375rem;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .soc-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+
+  .soc-btn:hover {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .footer-col-head {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.875rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer-links a {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-ink);
+  }
+
+  .footer-legal {
+    border-top: 1px solid var(--color-hairline-soft);
+    padding-block: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  .payment-chips {
+    display: flex;
+    gap: 0.375rem;
+    flex-wrap: wrap;
+  }
+
+  .pay-chip {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--color-muted);
+    background-color: var(--color-surface-soft);
+    padding: 0.1875rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
