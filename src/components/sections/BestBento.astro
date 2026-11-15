@@ -1,0 +1,23 @@
+---
+import ProductCard from './ProductCard.astro';
+import { bestSellerProducts } from '../../data/products';
+const filters = ['Semua', 'Women', 'Men', 'Unisex'];
+---
+
+<section class="section section--tall" aria-labelledby="best-title" data-filter-root>
+  <div class="container">
+    <div class="section__head">
+      <div><h2 id="best-title">Best Sellers</h2></div>
+      <fieldset class="seg" aria-label="Filter produk">
+        {filters.map((f, i) => (
+          <button type="button" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>
+        ))}
+      </fieldset>
+    </div>
+    <ul class="bento is-full">
+      {bestSellerProducts.map((p) => (
+        <li data-cat={p.category}><ProductCard product={p} /></li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+import { u } from '../../lib/url';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container">
+    <div>
+      <h1 id="hero-title">Batik, tapi bukan yang biasa.</h1>
+      <p class="lead">Batik modern untuk wanita dan pria, dibatik dan dijahit di Jawa.</p>
+      <div class="hero__actions">
+        <a href="#new-collection" class="btn">Shop New Collection</a>
+        <a href="#the-craft" class="link">Our Story</a>
+      </div>
+    </div>
+    <div class="hang">
+      <figure class="hang__main">
+        <div class="mat" style="height: 100%; padding: var(--space-sm);">
+          <div class="photo" data-slot="hero" data-alt="Model mengenakan batik modern Wastraloka">
+            <img src={u('/img/hero-main.jpg')} alt="Model mengenakan gaun batik modern bermotif awan" width="1400" height="1750" fetchpriority="high" style="object-position: 50% 30%" />
+          </div>
+        </div>
+        <figcaption>Koleksi Senja Rimba, 2026</figcaption>
+      </figure>
+      <figure class="hang__second">
+        <div class="mat" style="height: 100%; padding: var(--space-sm);">
+          <div class="photo" data-slot="hero-2" data-alt="Gaun batik hijau, pengambilan gambar studio">
+            <img src={u('/img/hero-second.jpg')} alt="Gaun batik hijau bermotif bunga" width="800" height="1000" />
+          </div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+const items = [
+  { title: 'Fair Pricing for Artisans', desc: 'Membayar 25% di atas harga pasar untuk setiap pengrajin mitra, karena keahlian yang langka layak dihargai setimpal.' },
+  { title: 'Natural Dye When Possible', desc: 'Indigo, mengkudu, soga: pewarna alami yang aman untuk kulit dan tidak mencemari sungai di sekitar workshop.' },
+  { title: 'Zero Waste Cutting', desc: 'Sisa kain tidak dibuang, dijahit menjadi scrunchie, pouch, dan aksesori yang dijual dengan harga terjangkau.' },
+  { title: 'Plastic-Free Packaging', desc: 'Box karton recyclable, paper tape, dan tissue kertas, tanpa satu pun lembar plastik dalam setiap paket.' },
+];
+---
+
+<section class="section" aria-labelledby="sus-title">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2 id="sus-title">Lebih dari sekadar fashion</h2>
+        <p class="lead">Kami percaya, fashion yang baik adalah fashion yang menghormati orang dan bumi.</p>
+      </div>
+    </div>
+    <ul class="rows">
+      {items.map((it) => (
+        <li><h3>{it.title}</h3><p>{it.desc}</p></li>
+      ))}
+    </ul>
+  </div>
+</section>

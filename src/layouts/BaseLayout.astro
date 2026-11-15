@@ -1,4 +1,5 @@
 ---
+import { u } from '../lib/url';
 import '../styles/global.css';
 
 interface Props {
@@ -8,9 +9,9 @@ interface Props {
 }
 
 const {
-  title = 'Wastraloka — Modern Indonesian Batik Fashion | Made in Java',
+  title = 'Wastraloka | Modern Indonesian Batik Fashion, Made in Java',
   description = 'Batik modern untuk wanita & pria. Dress, kebaya, kemeja, outer dengan motif tradisional & cutting modern. Made in Java, free shipping di atas Rp 750k.',
-  ogImage = '/og-image.jpg',
+  ogImage = u('/img/hero-main.jpg'),
 } = Astro.props;
 ---
 
@@ -22,29 +23,134 @@ const {
     <meta name="description" content={description} />
     <meta name="keywords" content="batik modern, batik wanita, batik pria, kebaya modern, fashion indonesia, batik premium, wastra indonesia" />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Canonical / hreflang -->
     <link rel="canonical" href={Astro.url.href} />
-
     <title>{title}</title>
 
-    <!-- Google Fonts: Cormorant Garamond (display) + Inter (body) -->
+    <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://api.fontshare.com/v2/css?f[]=sentient@300,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400&display=swap" rel="stylesheet" />
+    <link rel="preload" as="image" href={u('/img/hero-main.jpg')} fetchpriority="high" />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={u('/favicon.svg')} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
+  <style is:global>html, body { overflow-x: clip; }</style>
   <body>
+    <a class="skip" href="#main">Lewati ke konten</a>
     <slot />
+
+    <script>
+      // wishlist hearts
+      document.querySelectorAll<HTMLButtonElement>('.heart').forEach((b) =>
+        b.addEventListener('click', () =>
+          b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')),
+        ),
+      );
+
+      // tabs: motifs and lookbook; without script every panel shows in order
+      document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+        const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+        const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+        const pick = (i: number, focus = false) => {
+          tabs.forEach((t, n) => {
+            t.setAttribute('aria-selected', String(n === i));
+            t.tabIndex = n === i ? 0 : -1;
+          });
+          panels.forEach((p, n) => p.classList.toggle('is-on', n === i));
+          if (focus) tabs[i].focus();
+        };
+        tabs.forEach((t, i) => {
+          t.addEventListener('click', () => pick(i));
+          t.addEventListener('keydown', (e) => {
+            const k = (e as KeyboardEvent).key;
+            const step = k === 'ArrowDown' || k === 'ArrowRight' ? 1 : k === 'ArrowUp' || k === 'ArrowLeft' ? -1 : 0;
+            if (!step) return;
+            e.preventDefault();
+            pick((i + step + tabs.length) % tabs.length, true);
+          });
+        });
+        pick(0);
+      });
+
+      // best sellers filter
+      document.querySelectorAll<HTMLElement>('[data-filter-root]').forEach((root) => {
+        const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+        const items = [...root.querySelectorAll<HTMLElement>('[data-cat]')];
+        const grid = root.querySelector<HTMLElement>('.bento');
+        btns.forEach((b) =>
+          b.addEventListener('click', () => {
+            const f = b.dataset.filter;
+            btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+            items.forEach((li) => (li.hidden = f !== 'Semua' && li.dataset.cat !== f));
+            grid?.classList.toggle('is-full', f === 'Semua');
+          }),
+        );
+      });
+
+      // categories: the print follows the row
+      document.querySelectorAll<HTMLElement>('[data-cats]').forEach((root) => {
+        const links = [...root.querySelectorAll<HTMLElement>('a[data-i]')];
+        const imgs = [...root.querySelectorAll<HTMLElement>('.cats__print img')];
+        const on = (i: number) => {
+          links.forEach((l, n) => l.classList.toggle('is-on', n === i));
+          imgs.forEach((m, n) => m.classList.toggle('is-on', n === i));
+        };
+        links.forEach((l, i) => {
+          l.addEventListener('mouseenter', () => on(i));
+          l.addEventListener('focus', () => on(i));
+        });
+      });
+
+      // craft: the print changes with the step in view
+      document.querySelectorAll<HTMLElement>('[data-pinned]').forEach((root) => {
+        const stack = root.querySelector<HTMLElement>('[data-step]');
+        const steps = [...root.querySelectorAll<HTMLElement>('.steps li')];
+        if (!stack || !('IntersectionObserver' in window)) return;
+        const io = new IntersectionObserver(
+          (es) =>
+            es.forEach((e) => {
+              if (e.isIntersecting) stack.dataset.step = String(steps.indexOf(e.target as HTMLElement) + 1);
+            }),
+          { rootMargin: '-45% 0px -45% 0px' },
+        );
+        steps.forEach((s) => io.observe(s));
+      });
+
+      // sign-up posts nowhere yet
+      document.querySelectorAll<HTMLFormElement>('form[data-endpoint]').forEach((form) => {
+        const input = form.querySelector('input')!;
+        const help = form.querySelector<HTMLElement>('[aria-live]')!;
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const ok = input.checkValidity();
+          input.toggleAttribute('aria-invalid', !ok);
+          if (!ok) {
+            input.setAttribute('aria-describedby', help.id);
+            help.textContent = 'Alamat email belum lengkap. Tulis seperti nama@contoh.com.';
+            input.focus();
+            return;
+          }
+          if (!form.dataset.endpoint) {
+            help.textContent = 'Belum ada yang terkirim: formulir ini belum terhubung.';
+            return;
+          }
+          fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+            .then((r) => {
+              help.textContent = r.ok ? 'Terima kasih. Kami kirim kabar ke ' + input.value.trim() + '.' : 'Belum berhasil. Coba lagi sebentar lagi.';
+            })
+            .catch(() => {
+              help.textContent = 'Belum berhasil. Coba lagi sebentar lagi.';
+            });
+        });
+      });
+    </script>
   </body>
 </html>

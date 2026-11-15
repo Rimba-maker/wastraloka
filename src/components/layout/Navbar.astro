@@ -1,183 +1,36 @@
 ---
-const navLinks = [
+import { u } from '../../lib/url';
+const left = [
   { label: 'Women', href: '#' },
   { label: 'Men', href: '#' },
-  { label: 'Collection', href: '#' },
-  { label: 'Stories', href: '#' },
-  { label: 'Sale', href: '#', highlight: true },
+  { label: 'Collection', href: '#new-collection' },
+  { label: 'Stories', href: '#motif-stories' },
+  { label: 'Sale', href: '#', sale: true },
 ];
 ---
 
-<nav class="nav">
-  <div class="nav-inner container">
-    <!-- Logo -->
-    <a href="/" class="nav-logo" aria-label="Wastraloka — Beranda">
-      Wastra<span>loka</span>
-    </a>
-
-    <!-- Desktop links -->
-    <ul class="nav-links" role="list">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class:list={['nav-link', { 'nav-link--sale': link.highlight }]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-
-    <!-- Actions: icons from lucide-react via inline SVG (Astro static — no JS bundle needed) -->
-    <div class="nav-actions">
-      <!-- Search -->
-      <button class="nav-icon-btn" aria-label="Cari produk">
-        <!-- lucide: Search -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-        </svg>
-      </button>
-
-      <!-- Account -->
-      <button class="nav-icon-btn" aria-label="Akun saya">
-        <!-- lucide: User -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-        </svg>
-      </button>
-
-      <!-- Cart -->
-      <button class="nav-icon-btn nav-cart" aria-label="Keranjang belanja">
-        <!-- lucide: ShoppingBag -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <span class="cart-badge" aria-hidden="true">0</span>
-      </button>
-
-      <a href="#new-collection" class="btn-primary nav-cta">Shop Now</a>
+<header class="site">
+  <div class="banner">
+    <div class="container">
+      <span>Free shipping di atas Rp 750.000</span>
+      <span>30-day return</span>
+      <span>100% Made in Java</span>
     </div>
   </div>
-</nav>
-
-<style>
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background-color: var(--color-canvas);
-    border-bottom: 1px solid var(--color-hairline-soft);
-    height: 4.5rem;
-  }
-
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-  }
-
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    color: var(--color-ink);
-    line-height: 1;
-  }
-
-  .nav-logo span {
-    color: var(--color-mengkudu);
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2.25rem;
-    list-style: none;
-  }
-
-  .nav-link {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--color-body-text);
-    transition: color 0.2s ease;
-  }
-
-  .nav-link:hover {
-    color: var(--color-ink);
-  }
-
-  .nav-link--sale {
-    color: var(--color-mengkudu);
-    font-weight: 600;
-  }
-
-  .nav-link--sale:hover {
-    color: var(--color-mengkudu-active);
-  }
-
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
-  .nav-icon-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: var(--radius-pill);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-ink);
-    transition: background-color 0.2s ease;
-    position: relative;
-  }
-
-  .nav-icon-btn:hover {
-    background-color: var(--color-surface-soft);
-  }
-
-  .nav-cart {
-    margin-right: 0.5rem;
-  }
-
-  .cart-badge {
-    position: absolute;
-    top: 0.3125rem;
-    right: 0.3125rem;
-    min-width: 1rem;
-    height: 1rem;
-    background-color: var(--color-mengkudu);
-    color: #ffffff;
-    font-size: 0.5625rem;
-    font-weight: 700;
-    border-radius: var(--radius-pill);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    padding-inline: 0.1875rem;
-  }
-
-  .nav-cta {
-    font-size: 0.875rem;
-    padding: 0.5625rem 1.125rem;
-  }
-
-  @media (max-width: 900px) {
-    .nav-links {
-      display: none;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .nav-cta {
-      display: none;
-    }
-  }
-</style>
+  <nav class="bar" aria-label="Utama">
+    <div class="container">
+      <ul>
+        {left.map((l) => (
+          <li><a href={l.href} class={l.sale ? 'sale' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+      <a href={u('/')} class="wordmark" aria-label="Wastraloka, beranda">Wastraloka</a>
+      <ul>
+        <li><button type="button" aria-label="Cari produk">Cari</button></li>
+        <li><button type="button" aria-label="Akun saya">Akun</button></li>
+        <li><button type="button" aria-label="Keranjang belanja">Keranjang 0</button></li>
+        <li><a href="#new-collection" class="btn btn--sm">Shop Now</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>

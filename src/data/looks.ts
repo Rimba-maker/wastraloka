@@ -13,7 +13,6 @@ export interface Look {
   occasion: string;
   description: string;
   items: LookItem[];
-  // Swap imageUrl with photos from PRD: https://unsplash.com/s/photos/asian-business-woman-batik etc.
   imageUrl: string;
 }
 
@@ -27,7 +26,7 @@ export const looks: Look[] = [
       { name: 'Kemeja Parang Premium', price: 985000 },
       { name: 'Senja Wide Pants', price: 650000 },
     ],
-    imageUrl: 'https://picsum.photos/seed/wastra-look-1/800/1000',
+    imageUrl: '/img/look-office.jpg',
   },
   {
     id: 'sunday-brunch',
@@ -38,7 +37,7 @@ export const looks: Look[] = [
       { name: 'Rimba Wrap Dress', price: 1200000 },
       { name: 'Aksesoris Pouch Sisa', price: 125000 },
     ],
-    imageUrl: 'https://picsum.photos/seed/wastra-look-2/800/1000',
+    imageUrl: '/img/look-brunch.jpg',
   },
   {
     id: 'wedding-guest',
@@ -49,7 +48,7 @@ export const looks: Look[] = [
       { name: 'Senja Kebaya Modern', price: 1500000 },
       { name: 'Aksesoris Scrunchie', price: 85000 },
     ],
-    imageUrl: 'https://picsum.photos/seed/wastra-look-3/800/1000',
+    imageUrl: '/img/look-wedding.jpg',
   },
   {
     id: 'casual-friday',
@@ -60,7 +59,7 @@ export const looks: Look[] = [
       { name: 'Rimba Casual Shirt', price: 750000 },
       { name: 'Outer Kimono Truntum', price: 895000 },
     ],
-    imageUrl: 'https://picsum.photos/seed/wastra-look-4/800/1000',
+    imageUrl: '/img/look-casual.jpg',
   },
   {
     id: 'date-night',
@@ -71,7 +70,7 @@ export const looks: Look[] = [
       { name: 'Rimba Wrap Dress', price: 1200000 },
       { name: 'Crop Blouse Kawung', price: 575000 },
     ],
-    imageUrl: 'https://picsum.photos/seed/wastra-look-5/800/1000',
+    imageUrl: '/img/look-date.jpg',
   },
   {
     id: 'traditional-event',
@@ -82,6 +81,6 @@ export const looks: Look[] = [
       { name: 'Set Sido Mukti Wedding', price: 2400000 },
       { name: 'Kebaya Kawung Indigo', price: 1350000 },
     ],
-    imageUrl: 'https://picsum.photos/seed/wastra-look-6/800/1000',
+    imageUrl: '/img/look-adat.jpg',
   },
 ];

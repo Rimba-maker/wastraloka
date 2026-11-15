@@ -1,199 +1,44 @@
 ---
-// Lucide SVG paths — inline karena TheCraft adalah static .astro (tanpa React island)
-// Setiap iconPath adalah konten path untuk viewBox="0 0 24 24"
+import { u } from '../../lib/url';
 const steps = [
-  {
-    iconPath: `<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>`,
-    step: '01',
-    title: 'Menggambar Pola',
-    desc: 'Desainer kami berkolaborasi langsung dengan pengrajin merancang motif — memadukan filosofi tradisional dengan estetika kontemporer.',
-  },
-  {
-    iconPath: `<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>`,
-    step: '02',
-    title: 'Membatik (Tulis / Cap)',
-    desc: 'Batik tulis untuk koleksi premium — setiap titik canting dikerjakan tangan. Batik cap untuk produksi terbatas dengan presisi motif terjaga.',
-  },
-  {
-    iconPath: `<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>`,
-    step: '03',
-    title: 'Pewarnaan Natural',
-    desc: 'Indigo untuk biru yang dalam, mengkudu untuk merah hangat, soga untuk coklat elegan — pewarna alami yang ramah bumi.',
-  },
-  {
-    iconPath: `<circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/>`,
-    step: '04',
-    title: 'Menjahit & Finishing',
-    desc: 'Cutting modern dikerjakan di Solo — draping flattering untuk berbagai bentuk tubuh, dengan finishing detail yang terasa di setiap jahitan.',
-  },
+  { title: 'Menggambar Pola', desc: 'Desainer kami berkolaborasi langsung dengan pengrajin merancang motif, memadukan filosofi tradisional dengan estetika kontemporer.', img: '/img/craft-1.jpg', alt: 'Pengrajin menggambar pola batik di atas kain putih' },
+  { title: 'Membatik (Tulis / Cap)', desc: 'Batik tulis untuk koleksi premium, setiap titik canting dikerjakan tangan. Batik cap untuk produksi terbatas dengan presisi motif terjaga.', img: '/img/craft-2.jpg', alt: 'Tangan memegang canting berisi malam di atas kain' },
+  { title: 'Pewarnaan Natural', desc: 'Indigo untuk biru yang dalam, mengkudu untuk merah hangat, soga untuk coklat elegan, pewarna alami yang ramah bumi.', img: '/img/craft-3.jpg', alt: 'Kain batik berwarna digantung di luar ruangan' },
+  { title: 'Menjahit & Finishing', desc: 'Cutting modern dikerjakan di Solo, draping flattering untuk berbagai bentuk tubuh, dengan finishing detail yang terasa di setiap jahitan.', img: '/img/craft-4.jpg', alt: 'Kain batik parang yang sudah jadi' },
 ];
 ---
 
-<section class="the-craft" id="the-craft">
+<section class="section section--tall" id="the-craft" aria-labelledby="craft-title">
   <div class="container">
-    <div class="craft-inner">
-      <!-- Left: text + stats -->
-      <div class="craft-text">
-        <p class="section-label">Proses</p>
-        <h2 class="section-heading">
-          Kerajinan Yang Tidak<br />Bisa Diburu-buru
-        </h2>
-        <p class="craft-body">
-          Setiap helai Wastraloka melewati 14–21 tahap, dari menggambar pola
-          hingga finishing. Kami bekerja sama dengan 35+ pengrajin di
-          Pekalongan, Solo, Cirebon, dan Madura.
-        </p>
-        <div class="craft-stats">
-          <div class="stat">
-            <span class="stat-num">35+</span>
-            <span class="stat-label">Pengrajin Mitra</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">21</span>
-            <span class="stat-label">Tahap Produksi</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Made in Java</span>
-          </div>
+    <div class="section__head">
+      <div>
+        <h2 id="craft-title">Kerajinan yang tidak bisa diburu-buru</h2>
+        <p class="lead">Setiap helai Wastraloka melewati 14 sampai 21 tahap, dari menggambar pola hingga finishing. Kami bekerja sama dengan 35+ pengrajin di Pekalongan, Solo, Cirebon, dan Madura.</p>
+      </div>
+    </div>
+
+    <div class="figures">
+      <div><b>35+</b><span>Pengrajin Mitra</span></div>
+      <div><b>21</b><span>Tahap Produksi</span></div>
+      <div><b>100%</b><span>Made in Java</span></div>
+    </div>
+
+    <div class="pinned" data-pinned>
+      <div class="pinned__stack mat" data-step="1">
+        <div class="photo" data-slot="craft" data-alt="Proses membatik di Jawa">
+          {steps.map((s) => (
+            <img src={u(s.img)} alt={s.alt} width="1100" height="1375" loading="lazy" decoding="async" />
+          ))}
         </div>
       </div>
-
-      <!-- Right: 4-step process -->
-      <div class="craft-steps">
+      <ol class="steps">
         {steps.map((s) => (
-          <div class="craft-step">
-            <div class="step-icon" aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.75"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                width="22"
-                height="22"
-                set:html={s.iconPath}
-              />
-            </div>
-            <div class="step-content">
-              <p class="step-num">Langkah {s.step}</p>
-              <h3 class="step-title">{s.title}</h3>
-              <p class="step-desc">{s.desc}</p>
-            </div>
-          </div>
+          <li>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </div>
 </section>
-
-<style>
-  .the-craft {
-    padding-block: 4rem;
-    background-color: var(--color-surface-soft);
-  }
-
-  .craft-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .craft-body {
-    font-size: 1rem;
-    color: var(--color-body-text);
-    line-height: 1.7;
-    margin-top: 1rem;
-    margin-bottom: 2.25rem;
-  }
-
-  .craft-stats {
-    display: flex;
-    gap: 2.5rem;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-
-  .stat-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-muted);
-    margin-top: 0.375rem;
-  }
-
-  .craft-steps {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .craft-step {
-    display: flex;
-    gap: 1.25rem;
-    padding-block: 1.375rem;
-    border-bottom: 1px solid var(--color-hairline-soft);
-  }
-
-  .craft-step:last-child {
-    border-bottom: none;
-  }
-
-  .step-icon {
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-canvas);
-    border: 1px solid var(--color-hairline);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: var(--shadow-card);
-    color: var(--color-soga);
-  }
-
-  .step-num {
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-mengkudu);
-    margin-bottom: 0.25rem;
-  }
-
-  .step-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-ink);
-    margin-bottom: 0.375rem;
-  }
-
-  .step-desc {
-    font-size: 0.875rem;
-    color: var(--color-body-text);
-    line-height: 1.6;
-  }
-
-  @media (max-width: 900px) {
-    .craft-inner {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-  }
-</style>

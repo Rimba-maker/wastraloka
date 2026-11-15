@@ -1,0 +1,19 @@
+---
+import { u } from '../../lib/url';
+import { formatPrice, type Product } from '../../data/products';
+interface Props { product: Product; lead?: boolean }
+const { product: p } = Astro.props;
+---
+
+<article class="pcard">
+  <figure class="photo" data-slot={p.id} data-alt={p.name}>
+    <img src={u(p.imageUrl)} alt={p.name} width="900" height="1125" loading="lazy" decoding="async" />
+  </figure>
+  {p.badge && <span class="flag">{p.badge}</span>}
+  <button class="heart" type="button" aria-pressed="false" aria-label={`Simpan ${p.name}`}>
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg>
+  </button>
+  <h3>{p.name}</h3>
+  <p class="meta">{p.motif}<br />{p.color}</p>
+  <p class="price">{formatPrice(p.price)}</p>
+</article>

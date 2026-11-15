@@ -10,9 +10,6 @@ export interface Product {
   badge?: 'New' | 'Best Seller';
   imageUrl: string;
 }
-
-// Unsplash images via picsum seeds — swap with direct Unsplash CDN URLs from PRD:
-// https://images.unsplash.com/photo-{ID}?w=800&q=80&fit=crop&crop=entropy
 export const newCollectionProducts: Product[] = [
   {
     id: 'rimba-wrap-dress',
@@ -22,7 +19,7 @@ export const newCollectionProducts: Product[] = [
     price: 1200000,
     category: 'Women',
     badge: 'New',
-    imageUrl: 'https://picsum.photos/seed/wastra-prod-1/800/1000',
+    imageUrl: '/img/new-rimba-wrap.jpg',
   },
   {
     id: 'senja-kebaya-modern',
@@ -32,7 +29,7 @@ export const newCollectionProducts: Product[] = [
     price: 1500000,
     category: 'Women',
     badge: 'New',
-    imageUrl: 'https://picsum.photos/seed/wastra-prod-2/800/1000',
+    imageUrl: '/img/new-senja-kebaya.jpg',
   },
   {
     id: 'daun-outer-kimono',
@@ -42,7 +39,7 @@ export const newCollectionProducts: Product[] = [
     price: 950000,
     category: 'Women',
     badge: 'New',
-    imageUrl: 'https://picsum.photos/seed/wastra-prod-3/800/1000',
+    imageUrl: '/img/new-daun-outer.jpg',
   },
   {
     id: 'rimba-casual-shirt',
@@ -52,7 +49,7 @@ export const newCollectionProducts: Product[] = [
     price: 750000,
     category: 'Men',
     badge: 'New',
-    imageUrl: 'https://picsum.photos/seed/wastra-prod-4/800/1000',
+    imageUrl: '/img/new-rimba-shirt.jpg',
   },
   {
     id: 'senja-wide-pants',
@@ -62,7 +59,7 @@ export const newCollectionProducts: Product[] = [
     price: 650000,
     category: 'Women',
     badge: 'New',
-    imageUrl: 'https://picsum.photos/seed/wastra-prod-5/800/1000',
+    imageUrl: '/img/new-senja-pants.jpg',
   },
 ];
 
@@ -75,7 +72,7 @@ export const bestSellerProducts: Product[] = [
     price: 1100000,
     category: 'Women',
     badge: 'Best Seller',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-1/800/1000',
+    imageUrl: '/img/bs-wrap-parang.jpg',
   },
   {
     id: 'kemeja-mega-mendung',
@@ -84,7 +81,7 @@ export const bestSellerProducts: Product[] = [
     color: 'Indigo',
     price: 695000,
     category: 'Men',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-2/800/1000',
+    imageUrl: '/img/bs-mega-mendung.jpg',
   },
   {
     id: 'kebaya-kawung-indigo',
@@ -94,7 +91,7 @@ export const bestSellerProducts: Product[] = [
     price: 1350000,
     category: 'Women',
     badge: 'Best Seller',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-3/800/1000',
+    imageUrl: '/img/bs-kebaya-kawung.jpg',
   },
   {
     id: 'outer-kimono-truntum',
@@ -103,7 +100,7 @@ export const bestSellerProducts: Product[] = [
     color: 'Earth',
     price: 895000,
     category: 'Unisex',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-4/800/1000',
+    imageUrl: '/img/bs-outer-truntum.jpg',
   },
   {
     id: 'sekar-jagad-wide-pants',
@@ -112,7 +109,7 @@ export const bestSellerProducts: Product[] = [
     color: 'Cream',
     price: 650000,
     category: 'Women',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-5/800/1000',
+    imageUrl: '/img/bs-sekar-pants.jpg',
   },
   {
     id: 'set-sido-mukti-wedding',
@@ -122,16 +119,16 @@ export const bestSellerProducts: Product[] = [
     price: 2400000,
     category: 'Unisex',
     badge: 'Best Seller',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-6/800/1000',
+    imageUrl: '/img/bs-sido-mukti.jpg',
   },
   {
     id: 'kemeja-parang-premium',
     name: 'Kemeja Parang Premium',
-    motif: 'Batik Tulis · Premium',
+    motif: 'Batik Tulis, Premium',
     color: 'Soga',
     price: 985000,
     category: 'Men',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-7/800/1000',
+    imageUrl: '/img/bs-kemeja-parang.jpg',
   },
   {
     id: 'crop-blouse-kawung',
@@ -140,7 +137,7 @@ export const bestSellerProducts: Product[] = [
     color: 'Sage',
     price: 575000,
     category: 'Women',
-    imageUrl: 'https://picsum.photos/seed/wastra-bs-8/800/1000',
+    imageUrl: '/img/bs-crop-kawung.jpg',
   },
 ];
 

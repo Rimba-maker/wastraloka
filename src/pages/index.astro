@@ -2,62 +2,29 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
-
-// Static sections (.astro)
+import HeroStage from '../components/sections/HeroStage.astro';
+import MotifStrips from '../components/sections/MotifStrips.astro';
+import CollectionRail from '../components/sections/CollectionRail.astro';
+import CategoryIndex from '../components/sections/CategoryIndex.astro';
 import TheCraft from '../components/sections/TheCraft.astro';
-import Press from '../components/sections/Press.astro';
-
-// React islands
-import Hero from '../components/sections/Hero';
-import NewCollection from '../components/sections/NewCollection';
-import ShopByCategory from '../components/sections/ShopByCategory';
-import MotifStories from '../components/sections/MotifStories';
-import FeaturedProducts from '../components/sections/FeaturedProducts';
-import Lookbook from '../components/sections/Lookbook';
-import Sustainability from '../components/sections/Sustainability';
-import Reviews from '../components/sections/Reviews';
-import Newsletter from '../components/sections/Newsletter';
+import Sustain from '../components/sections/Sustain.astro';
+import BestBento from '../components/sections/BestBento.astro';
+import ReviewRows from '../components/sections/ReviewRows.astro';
+import LookSwitch from '../components/sections/LookSwitch.astro';
 ---
 
 <BaseLayout>
-  <!-- 01: Navbar — static -->
   <Navbar />
-
-  <main>
-    <!-- 02: Hero — client:load (above-fold, animates immediately) -->
-    <Hero client:load />
-
-    <!-- 03: New Collection — client:visible -->
-    <NewCollection client:visible />
-
-    <!-- 04: Shop By Category — client:visible -->
-    <ShopByCategory client:visible />
-
-    <!-- 05: Motif Stories — client:visible -->
-    <MotifStories client:visible />
-
-    <!-- 06: The Craft — static -->
+  <main id="main">
+    <HeroStage />
+    <MotifStrips />
+    <CollectionRail />
+    <CategoryIndex />
     <TheCraft />
-
-    <!-- 07: Featured Products — client:visible -->
-    <FeaturedProducts client:visible />
-
-    <!-- 08: Lookbook — client:visible -->
-    <Lookbook client:visible />
-
-    <!-- 09: Sustainability — client:visible -->
-    <Sustainability client:visible />
-
-    <!-- 10: Reviews — client:visible -->
-    <Reviews client:visible />
-
-    <!-- 11: Press — static -->
-    <Press />
-
-    <!-- 12: Newsletter — client:idle (non-critical, load last) -->
-    <Newsletter client:idle />
+    <Sustain />
+    <BestBento />
+    <ReviewRows />
+    <LookSwitch />
   </main>
-
-  <!-- 13: Footer — static -->
   <Footer />
 </BaseLayout>

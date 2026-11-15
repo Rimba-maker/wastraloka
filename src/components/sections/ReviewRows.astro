@@ -1,0 +1,33 @@
+---
+import { reviews, averageRating, totalReviews } from '../../data/reviews';
+const [first, ...rest] = reviews;
+---
+
+<section class="section section--tall" aria-labelledby="rev-title">
+  <div class="container">
+    <div class="section__head">
+      <div><h2 id="rev-title">Apa kata pelanggan</h2></div>
+    </div>
+    <div class="rating">
+      <div class="rating__fig">
+        <b>{String(averageRating).replace('.', ',')}</b>
+        <span>dari 5, {totalReviews}+ ulasan</span>
+      </div>
+      <figure class="quote">
+        <blockquote><p>{first.text}</p></blockquote>
+        <footer>{first.name}, {first.location}. {first.product}</footer>
+      </figure>
+    </div>
+    <ul class="rows reviews">
+      {rest.map((r) => (
+        <li>
+          <p class="who">{r.name}<small>{r.location}</small></p>
+          <blockquote>
+            <p>{r.text}</p>
+            {r.product && <footer>{r.product}</footer>}
+          </blockquote>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

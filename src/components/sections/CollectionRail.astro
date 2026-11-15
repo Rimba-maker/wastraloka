@@ -1,0 +1,19 @@
+---
+import ProductCard from './ProductCard.astro';
+import { newCollectionProducts } from '../../data/products';
+---
+
+<section class="section section--tall" id="new-collection" aria-labelledby="new-title">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2 id="new-title">Koleksi Senja Rimba</h2>
+        <p class="lead">Terinspirasi cahaya senja yang menembus rimba, motif daun dan hutan dengan palet warm earth tone.</p>
+      </div>
+      <a href="#" class="link">Lihat semua</a>
+    </div>
+  </div>
+  <ul class="rail" tabindex="0" aria-label="Koleksi Senja Rimba">
+    {newCollectionProducts.map((p) => <li><ProductCard product={p} /></li>)}
+  </ul>
+</section>

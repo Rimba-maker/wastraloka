@@ -1,0 +1,31 @@
+---
+import { u } from '../../lib/url';
+import { categories } from '../../data/categories';
+---
+
+<section class="section section--band" aria-labelledby="cat-title">
+  <div class="container">
+    <div class="section__head">
+      <div><h2 id="cat-title">Shop By Category</h2></div>
+    </div>
+    <div class="cats" data-cats>
+      <ul>
+        {categories.map((c, i) => (
+          <li>
+            <a href={c.href} data-i={i} class:list={[{ 'is-on': i === 0 }]}>
+              <span class="name">{c.name}</span>
+              <span class="small num">{c.count} produk</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="cats__print mat">
+        <div class="photo photo--45" data-slot="category" data-alt="Kategori pilihan">
+          {categories.map((c, i) => (
+            <img src={u(c.imageUrl)} alt={c.name} width="900" height="1125" loading="lazy" decoding="async" class:list={[{ 'is-on': i === 0 }]} />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

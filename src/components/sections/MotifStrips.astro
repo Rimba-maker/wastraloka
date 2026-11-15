@@ -1,0 +1,41 @@
+---
+import { motifs } from '../../data/motifs';
+const dyes = ['soga', 'indigo', 'daun', 'indigo', 'mengkudu', 'gold'];
+---
+
+<section class="section section--band" id="motif-stories" aria-labelledby="motif-title">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2 id="motif-title">Setiap motif adalah cerita</h2>
+        <p class="lead">Klik untuk mendalami filosofi di balik motif yang Anda kenakan.</p>
+      </div>
+    </div>
+
+    <div class="motifs" data-tabs>
+      <ul class="strips" role="tablist" aria-label="Motif" aria-orientation="vertical">
+        {motifs.map((m, i) => (
+          <li role="presentation">
+            <button class="strip" role="tab" id={`tab-${m.id}`} aria-controls={`panel-${m.id}`} aria-selected={i === 0 ? 'true' : 'false'} type="button" style={`--dye: var(--dye-${dyes[i]})`}>
+              <span class="strip__tip" aria-hidden="true"></span>
+              <span class="strip__name">{m.name}</span>
+              <span>{m.region}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <div class="motif-panels">
+        {motifs.map((m, i) => (
+          <article class:list={['panel-motif', 'mat', { 'is-on': i === 0 }]} role="tabpanel" id={`panel-${m.id}`} aria-labelledby={`tab-${m.id}`} style={`--dye: var(--dye-${dyes[i]})`}>
+            <div class="swatch" aria-hidden="true"></div>
+            <h3>{m.name}</h3>
+            <p class="meaning">{m.meaning}</p>
+            <p class="origin">{m.origin}, {m.region}</p>
+            <p class="desc">{m.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

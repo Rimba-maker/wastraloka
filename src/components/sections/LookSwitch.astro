@@ -1,0 +1,42 @@
+---
+import { u } from '../../lib/url';
+import { looks } from '../../data/looks';
+import { formatPrice } from '../../data/products';
+---
+
+<section class="section section--band" aria-labelledby="look-title">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2 id="look-title">Style The Look</h2>
+        <p class="lead">6 cara styling Wastraloka untuk berbagai kesempatan, dari kantor hingga acara pernikahan.</p>
+      </div>
+    </div>
+    <div class="looks" data-tabs>
+      <div class="looks__tabs" role="tablist" aria-label="Kesempatan">
+        {looks.map((l, i) => (
+          <button role="tab" id={`look-tab-${l.id}`} aria-controls={`look-${l.id}`} aria-selected={i === 0 ? 'true' : 'false'} type="button">{l.title}</button>
+        ))}
+      </div>
+      {looks.map((l, i) => (
+        <article class:list={['look', { 'is-on': i === 0 }]} role="tabpanel" id={`look-${l.id}`} aria-labelledby={`look-tab-${l.id}`}>
+          <div class="mat">
+            <div class="photo" data-slot={`look-${l.id}`} data-alt={l.title}>
+              <img src={u(l.imageUrl)} alt={`${l.title}: ${l.occasion}`} width="900" height="1125" loading="lazy" decoding="async" />
+            </div>
+          </div>
+          <div class="look__text">
+            <h3>{l.title}</h3>
+            <p class="occasion">{l.occasion}</p>
+            <p class="desc">{l.description}</p>
+            <ul class="items">
+              {l.items.map((it) => (
+                <li><span>{it.name}</span><span class="price">{formatPrice(it.price)}</span></li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

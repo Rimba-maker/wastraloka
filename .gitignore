@@ -27,3 +27,6 @@ npm-debug.log*
 
 # Dapur rahasia — dokumen internal tidak dipublikasikan
 *.md
+
+# Hallmark local records
+.hallmark/
